@@ -8,4 +8,5 @@ project(
 )
 
 add_executable(DividingMap "${CMAKE_SOURCE_DIR}/src/main.cpp")
+target_compile_features(DividingMap PRIVATE cxx_std_20)
 target_include_directories(DividingMap PRIVATE "${CMAKE_SOURCE_DIR}/include")
