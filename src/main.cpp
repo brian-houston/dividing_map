@@ -1,13 +1,18 @@
-#include <map.h>
-#include <iostream>
-#include <fstream>
+#include "map.h" 
+#include "divide.h" 
+#include <random>
 
 int main() {
-  Map m{2, 2, Map::BoundModeEnum::Clamp};
+  std::random_device rd;
+  std::ranlux48 gen(rd());
+
+  Map m{2, 2, Map::BoundModeEnum::Wrap};
   m.set(0, 0, 1);
-  m.set(1, 0, 2);
-  m.set(0, 1, 4);
-  m.set(1, 1, 5);
-  m.save_pbm("test.pbm", 3);
+  m.set(1, 1, 1);
+  float probs[2][3] = {{0,0.2,0.9}, {0.7,0.2,0}};
+  for (int i = 0 ; i < 10; i++) {
+    m = basic_divide(m, probs, gen);
+  }
+  m.save_pbm("test.pbm");
   return 0;
 }
